@@ -494,20 +494,42 @@
 
   /* fade sections in as they enter the viewport, project cards staggered */
   var items = document.querySelectorAll(".reveal");
+  var lastY = window.scrollY;
+  var goingDown = true;
+
   if (calm || !("IntersectionObserver" in window)) {
     items.forEach(function (el) { el.classList.add("visible"); });
   } else {
     document.querySelectorAll(".project").forEach(function (el, i) {
       el.style.transitionDelay = (i * 90) + "ms";
     });
+
+    /* show without animating, used when the reader is moving back up */
+    function showInstantly(el) {
+      var delay = el.style.transitionDelay;
+      el.style.transition = "none";
+      el.style.transitionDelay = "0s";
+      el.classList.add("visible");
+      void el.offsetWidth;
+      el.style.transition = "";
+      el.style.transitionDelay = delay;
+    }
+
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
+          if (goingDown) {
+            entry.target.classList.add("visible");
+          } else {
+            showInstantly(entry.target);
+          }
+        } else {
+          /* reset once it is out of sight so it can play again on the way down */
+          entry.target.classList.remove("visible");
         }
       });
     }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+
     items.forEach(function (el) { observer.observe(el); });
   }
 
@@ -543,6 +565,8 @@
   }
 
   window.addEventListener("scroll", function () {
+    var y = window.scrollY;
+    if (y !== lastY) { goingDown = y > lastY; lastY = y; }
     if (!ticking) { window.requestAnimationFrame(frame); ticking = true; }
   }, { passive: true });
 
