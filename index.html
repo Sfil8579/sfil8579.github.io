@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add("has-js");</script>
 <style>
   :root {
     --navy:      #10294f;
@@ -26,11 +27,7 @@
 
   html { scroll-behavior: smooth; }
 
-  section[id] { scroll-margin-top: 28px; }
-
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-  }
+  section[id] { scroll-margin-top: 84px; }
 
   body {
     margin: 0;
@@ -44,15 +41,32 @@
 
   .wrap { max-width: 880px; margin: 0 auto; padding: 0 28px; }
 
-  /* ---------- header ---------- */
+  /* ---------- sticky navigation ---------- */
 
-  .band { background: var(--navy); padding: 22px 0 70px; }
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    background: var(--navy);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  }
+
+  .progress {
+    height: 2px;
+    background: transparent;
+  }
+
+  .progress span {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: var(--gold);
+  }
 
   nav {
     display: flex;
     justify-content: flex-end;
-    gap: 26px;
-    margin-bottom: 30px;
+    padding: 14px 0;
   }
 
   nav a {
@@ -61,17 +75,49 @@
     font-size: 0.82rem;
     font-weight: 500;
     letter-spacing: 0.04em;
-    padding-bottom: 3px;
-    border-bottom: 1px solid transparent;
-    transition: color 0.15s ease, border-color 0.15s ease;
+    padding: 2px 20px;
+    transition: color 0.15s ease;
   }
 
+  nav a + a { border-left: 1px solid rgba(255, 255, 255, 0.2); }
+
+  nav a:last-child { padding-right: 0; }
+
   nav a:hover,
-  nav a:focus-visible { color: #fff; border-bottom-color: var(--gold); }
+  nav a:focus-visible { color: #fff; }
 
-  .band-inner { display: flex; align-items: center; gap: 40px; }
+  nav a.active { color: var(--gold); }
 
-  /* the navy disc wraps the portrait so it grows out of the band */
+  /* ---------- header ---------- */
+
+  .band {
+    background: var(--navy);
+    padding: 60px 0 70px;
+    position: relative;
+  }
+
+  .band-deco {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .band-deco i {
+    position: absolute;
+    display: block;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    will-change: transform;
+  }
+
+  .deco-1 { width: 380px; height: 380px; right: -90px;  top: -140px; }
+  .deco-2 { width: 220px; height: 220px; right: 130px;  top: 60px; border-color: rgba(217, 154, 31, 0.22); }
+  .deco-3 { width: 520px; height: 520px; left: -220px;  top: -260px; }
+
+  .band-inner { display: flex; align-items: center; gap: 40px; position: relative; z-index: 1; }
+
   .portrait-holder {
     flex: 0 0 auto;
     background: var(--navy);
@@ -111,12 +157,7 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.14);
   }
 
-  .statement {
-    font-size: 0.96rem;
-    color: #97ade0;
-    margin: 0;
-    max-width: 46ch;
-  }
+  .statement { font-size: 0.96rem; color: #97ade0; margin: 0; max-width: 46ch; }
 
   .statement em { color: var(--gold); font-style: normal; font-weight: 600; }
 
@@ -309,9 +350,22 @@
 
   a:focus-visible { outline: 2px solid var(--coral); outline-offset: 3px; }
 
+  /* ---------- scroll reveals ---------- */
+
+  .has-js .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .has-js .reveal.visible { opacity: 1; transform: none; }
+
   @media (max-width: 640px) {
-    .band { padding: 18px 0 44px; }
-    nav { justify-content: flex-start; flex-wrap: wrap; gap: 18px; margin-bottom: 30px; }
+    .band { padding: 40px 0 44px; }
+    nav { justify-content: flex-start; flex-wrap: wrap; }
+    nav a { padding: 2px 14px; }
+    nav a:first-child { padding-left: 0; }
     .band-inner { flex-direction: column; align-items: flex-start; gap: 12px; }
     .portrait-holder { transform: translateY(58px); padding: 10px; }
     .band-text { transform: none; }
@@ -319,43 +373,52 @@
     .panel { padding: 28px 24px 30px; }
     .panel-about { padding-top: 74px; }
     .contact { flex-direction: column; align-items: flex-start; }
+    .deco-2 { display: none; }
   }
 
   @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
     * { transition: none !important; }
     .project:hover { transform: none; }
+    .has-js .reveal { opacity: 1; transform: none; }
   }
 </style>
 </head>
 <body>
 
-<header class="band">
+<div class="navbar">
+  <div class="progress"><span id="progress-bar"></span></div>
   <div class="wrap">
-
     <nav>
       <a href="#about">About</a>
       <a href="#projects">Projects</a>
       <a href="#elsewhere">Elsewhere</a>
       <a href="#contact">Contact</a>
     </nav>
+  </div>
+</div>
 
-    <div class="band-inner">
-      <div class="portrait-holder">
-        <img class="portrait" src="portrait.png" alt="Gerardo Murga">
-      </div>
-      <div class="band-text">
-        <h1>Gerardo Murga</h1>
-        <p class="role">Quantitative Economics with a computer science minor, Stanford University</p>
-        <p class="statement">I build models I can explain, and I am interested in <em>fintech as a lever for social change</em>.</p>
-      </div>
+<header class="band">
+  <div class="band-deco">
+    <i class="deco-1" data-speed="0.16"></i>
+    <i class="deco-2" data-speed="-0.1"></i>
+    <i class="deco-3" data-speed="0.08"></i>
+  </div>
+  <div class="wrap band-inner">
+    <div class="portrait-holder">
+      <img class="portrait" src="portrait.png" alt="Gerardo Murga">
     </div>
-
+    <div class="band-text">
+      <h1>Gerardo Murga</h1>
+      <p class="role">Quantitative Economics with a computer science minor, Stanford University</p>
+      <p class="statement">I build models I can explain, and I am interested in <em>fintech as a lever for social change</em>.</p>
+    </div>
   </div>
 </header>
 
 <div class="wrap">
 
-  <section class="panel panel-about" id="about">
+  <section class="panel panel-about reveal" id="about">
     <p class="eyebrow">Who I am</p>
     <h2>About</h2>
     <ul class="facts">
@@ -366,24 +429,24 @@
     </ul>
   </section>
 
-  <section class="panel panel-projects" id="projects">
+  <section class="panel panel-projects reveal" id="projects">
     <p class="eyebrow">What I am building</p>
     <h2>Projects</h2>
     <div class="projects">
 
-      <a class="project" href="#">
+      <a class="project reveal" href="#">
         <span class="tag">R &middot; Machine learning</span>
         <h3>Predicting NFL games with a factor pipeline</h3>
         <p>SVD, Varimax rotation and weighted least squares on fifteen seasons of play by play data, benchmarked against a random forest.</p>
       </a>
 
-      <a class="project" href="#">
+      <a class="project reveal" href="#">
         <span class="tag">Interactive tool</span>
         <h3>When does microlending become a debt trap?</h3>
         <p>Set the interest rate, the term and the income volatility, then see where repayment becomes impossible and where it does not.</p>
       </a>
 
-      <a class="project" href="#">
+      <a class="project reveal" href="#">
         <span class="tag">Shipped app</span>
         <h3>LectusXP</h3>
         <p>Short interactive readings for children, live on the Play Store. The project behind my Rise fellowship.</p>
@@ -392,7 +455,7 @@
     </div>
   </section>
 
-  <section class="elsewhere" id="elsewhere">
+  <section class="elsewhere reveal" id="elsewhere">
     <p class="eyebrow">Other things I do</p>
     <h2>Elsewhere</h2>
     <div class="more">
@@ -402,7 +465,7 @@
     </div>
   </section>
 
-  <section class="contact" id="contact">
+  <section class="contact reveal" id="contact">
     <div>
       <h2>Get in touch</h2>
       <p>Open to data science and machine learning internships.</p>
@@ -416,6 +479,68 @@
 
   <footer>Gerardo Murga</footer>
 </div>
+
+<script>
+(function () {
+  var calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* fade sections in as they enter the viewport, project cards staggered */
+  var items = document.querySelectorAll(".reveal");
+  if (calm || !("IntersectionObserver" in window)) {
+    items.forEach(function (el) { el.classList.add("visible"); });
+  } else {
+    document.querySelectorAll(".project").forEach(function (el, i) {
+      el.style.transitionDelay = (i * 90) + "ms";
+    });
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+    items.forEach(function (el) { observer.observe(el); });
+  }
+
+  /* drifting rings in the header, plus the progress bar and active nav link */
+  var rings = document.querySelectorAll(".band-deco i");
+  var bar = document.getElementById("progress-bar");
+  var links = document.querySelectorAll("nav a");
+  var sections = document.querySelectorAll("section[id]");
+  var ticking = false;
+
+  function frame() {
+    var y = window.scrollY;
+
+    if (!calm) {
+      rings.forEach(function (ring) {
+        var speed = parseFloat(ring.getAttribute("data-speed")) || 0;
+        ring.style.transform = "translate3d(0," + (y * speed) + "px,0)";
+      });
+    }
+
+    var height = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (height > 0 ? Math.min(y / height, 1) * 100 : 0) + "%";
+
+    var current = "";
+    sections.forEach(function (section) {
+      if (y >= section.offsetTop - 140) { current = section.id; }
+    });
+    links.forEach(function (link) {
+      link.classList.toggle("active", link.getAttribute("href") === "#" + current);
+    });
+
+    ticking = false;
+  }
+
+  window.addEventListener("scroll", function () {
+    if (!ticking) { window.requestAnimationFrame(frame); ticking = true; }
+  }, { passive: true });
+
+  frame();
+})();
+</script>
 
 </body>
 </html>
