@@ -6,15 +6,18 @@
 <title>Gerardo Murga</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --sky:       #dceaf7;
-    --navy:      #12356b;
-    --navy-deep: #0a2149;
-    --gold:      #e2a32b;
-    --coral:     #d1495b;
-    --ink:       #1b2a41;
+    --navy:       #12356b;
+    --navy-deep:  #0a2149;
+    --sky:        #dceaf7;
+    --paper:      #ffffff;
+    --paper-warm: #f6f9fd;
+    --gold:       #e2a32b;
+    --coral:      #d1495b;
+    --ink:        #1b2a41;
+    --ink-soft:   #4a5b74;
   }
 
   * { box-sizing: border-box; }
@@ -25,157 +28,348 @@
     color: var(--ink);
     font-family: "Inter", system-ui, sans-serif;
     line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
   }
 
-  .page {
-    max-width: 720px;
+  .wrap {
+    max-width: 880px;
     margin: 0 auto;
-    padding: 0 24px 96px;
+    padding: 0 24px;
   }
 
-  /* the dark blue rule, with the portrait sitting on top of it */
-  .banner {
-    position: relative;
-    margin-top: 96px;
-    border-top: 6px solid var(--navy);
-    height: 0;
+  /* ---------- header band ---------- */
+
+  .band {
+    background: linear-gradient(160deg, var(--navy-deep), var(--navy));
+    padding: 64px 0 96px;
+  }
+
+  .band-inner {
+    display: flex;
+    align-items: center;
+    gap: 32px;
   }
 
   .portrait {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    transform: translate(-50%, -58%);
-    width: 190px;
-    height: 190px;
+    flex: 0 0 auto;
+    width: 172px;
+    height: 172px;
     border-radius: 50%;
     object-fit: cover;
-    border: 7px solid var(--navy);
+    border: 6px solid var(--sky);
     background: var(--sky);
-    display: block;
+    margin-bottom: -104px;
+    box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.5);
   }
 
-  .intro {
-    padding-top: 110px;
-    text-align: center;
-  }
-
-  h1 {
-    font-family: "Fraunces", Georgia, serif;
-    font-weight: 700;
-    font-size: clamp(2.4rem, 7vw, 3.4rem);
-    color: var(--navy-deep);
+  .band h1 {
+    font-family: "Outfit", system-ui, sans-serif;
+    font-weight: 600;
+    font-size: clamp(2.2rem, 6vw, 3.1rem);
+    color: #fff;
     letter-spacing: -0.02em;
-    margin: 0 0 6px;
-  }
-
-  .tagline {
-    font-size: 1.05rem;
-    color: var(--navy);
     margin: 0 0 8px;
   }
 
+  .band p {
+    font-family: "Outfit", system-ui, sans-serif;
+    font-size: clamp(1rem, 2.4vw, 1.15rem);
+    color: #b9d0ec;
+    margin: 0 0 14px;
+    font-weight: 400;
+  }
+
   .place {
-    font-size: 0.85rem;
-    letter-spacing: 0.14em;
+    display: inline-block;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--gold);
+    border-top: 2px solid var(--gold);
+    padding-top: 7px;
+  }
+
+  /* ---------- content card ---------- */
+
+  .card {
+    background: linear-gradient(180deg, var(--paper), var(--paper-warm));
+    border: 1px solid rgba(18, 53, 107, 0.09);
+    border-radius: 22px;
+    box-shadow: 0 24px 50px -30px rgba(10, 33, 73, 0.45);
+    padding: 84px 44px 44px;
+    margin-top: 24px;
+  }
+
+  h2 {
+    font-family: "Outfit", system-ui, sans-serif;
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: var(--navy-deep);
+    margin: 0 0 4px;
+  }
+
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--coral);
     font-weight: 600;
-    margin: 0;
+    margin: 0 0 24px;
   }
 
-  .facts {
-    list-style: none;
-    padding: 0;
-    margin: 56px 0 0;
-  }
+  .facts { list-style: none; padding: 0; margin: 0; }
 
   .facts li {
     position: relative;
-    padding: 0 0 0 34px;
-    margin-bottom: 20px;
-    font-size: 1.02rem;
+    padding-left: 32px;
+    margin-bottom: 18px;
+    color: var(--ink-soft);
   }
 
   .facts li::before {
     content: "";
     position: absolute;
     left: 0;
-    top: 11px;
-    width: 14px;
+    top: 12px;
+    width: 15px;
     height: 3px;
+    border-radius: 2px;
     background: var(--gold);
   }
 
-  .facts strong {
-    color: var(--navy-deep);
-    font-weight: 600;
+  .facts strong { color: var(--ink); font-weight: 600; }
+
+  .section { margin-top: 56px; }
+
+  /* ---------- projects ---------- */
+
+  .projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 18px;
+    margin-top: 8px;
   }
 
-  .links {
-    margin-top: 48px;
-    padding-top: 28px;
-    border-top: 2px solid rgba(18, 53, 107, 0.25);
+  .project {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background: var(--paper);
+    border: 1px solid rgba(18, 53, 107, 0.12);
+    border-radius: 18px;
+    padding: 24px 22px 26px;
+    min-height: 208px;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  }
+
+  .project:hover,
+  .project:focus-visible {
+    transform: translateY(-5px);
+    border-color: rgba(18, 53, 107, 0.3);
+    box-shadow: 0 18px 32px -18px rgba(10, 33, 73, 0.45);
+  }
+
+  .tag {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--navy);
+    background: #e7f0fa;
+    border-radius: 999px;
+    padding: 4px 11px;
+    display: inline-block;
+    margin-bottom: 14px;
+  }
+
+  .project h3 {
+    font-family: "Outfit", system-ui, sans-serif;
+    font-size: 1.08rem;
+    font-weight: 600;
+    color: var(--navy-deep);
+    margin: 0 0 8px;
+    line-height: 1.35;
+  }
+
+  .project p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  /* ---------- secondary explorations ---------- */
+
+  .more {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  .more a {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+    text-decoration: none;
+    border: 1px solid rgba(18, 53, 107, 0.22);
+    border-radius: 14px;
+    padding: 14px 16px;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--navy);
+    background: transparent;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+
+  .more a:hover,
+  .more a:focus-visible {
+    background: #eaf2fb;
+    border-color: var(--navy);
+  }
+
+  .more span {
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  /* ---------- contact ---------- */
+
+  .contact {
+    background: linear-gradient(160deg, var(--navy), var(--navy-deep));
+    border-radius: 20px;
+    padding: 32px 34px;
+    margin-top: 56px;
     display: flex;
     flex-wrap: wrap;
-    gap: 26px;
-    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
   }
 
-  .links a {
-    color: var(--navy);
+  .contact h2 { color: #fff; margin-bottom: 2px; }
+  .contact p { margin: 0; color: #b9d0ec; font-size: 0.92rem; }
+
+  .contact-links { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  .contact-links a {
     text-decoration: none;
+    font-size: 0.88rem;
     font-weight: 600;
-    font-size: 0.95rem;
-    border-bottom: 2px solid transparent;
-    transition: border-color 0.15s ease, color 0.15s ease;
+    color: var(--navy-deep);
+    background: #fff;
+    border-radius: 999px;
+    padding: 10px 20px;
+    transition: background 0.15s ease, color 0.15s ease;
   }
 
-  .links a:hover,
-  .links a:focus-visible {
-    color: var(--coral);
-    border-bottom-color: var(--coral);
+  .contact-links a:hover,
+  .contact-links a:focus-visible {
+    background: var(--gold);
+    color: var(--navy-deep);
   }
 
-  @media (max-width: 480px) {
-    .portrait { width: 150px; height: 150px; }
-    .intro { padding-top: 86px; }
+  footer {
+    text-align: center;
+    font-size: 0.78rem;
+    color: #6b7f9c;
+    padding: 34px 0 48px;
+  }
+
+  a:focus-visible { outline: 3px solid var(--coral); outline-offset: 3px; }
+
+  @media (max-width: 620px) {
+    .band { padding: 48px 0 84px; }
+    .band-inner { flex-direction: column; text-align: center; gap: 18px; }
+    .portrait { width: 140px; height: 140px; margin-bottom: -92px; }
+    .card { padding: 72px 24px 32px; }
+    .contact { flex-direction: column; align-items: flex-start; }
   }
 
   @media (prefers-reduced-motion: reduce) {
     * { transition: none !important; }
+    .project:hover { transform: none; }
   }
 </style>
 </head>
 <body>
 
-<div class="page">
-
-  <div class="banner">
+<div class="band">
+  <div class="wrap band-inner">
     <img class="portrait" src="portrait.png" alt="Gerardo Murga">
+    <div>
+      <h1>Gerardo Murga</h1>
+      <p>Economics and Computer Science at Stanford</p>
+      <span class="place">Chihuahua, Mexico</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="card">
+
+    <h2>About</h2>
+    <p class="eyebrow">Who I am</p>
+    <ul class="facts">
+      <li><strong>Quantitative Economics, with a computer science minor.</strong> Class of 2028, focused on econometrics and applied machine learning.</li>
+      <li><strong>Research assistant in the Stanford Economics Department,</strong> working on interpretable causal effects at the intersection of econometrics and machine learning with Professor Arun Chandrasekhar.</li>
+      <li><strong>Lead singer and vice president of Stanford Mariachi Cardenal.</strong></li>
+      <li><strong>Rise Fellow.</strong> Long term, I want to widen access to financial tools across Latin America.</li>
+    </ul>
+
+    <div class="section">
+      <h2>Projects</h2>
+      <p class="eyebrow">What I am building</p>
+      <div class="projects">
+
+        <a class="project" href="#">
+          <span class="tag">R &middot; Machine learning</span>
+          <h3>Predicting NFL games with a factor pipeline</h3>
+          <p>SVD, Varimax rotation and weighted least squares on fifteen seasons of play by play data, benchmarked against a random forest.</p>
+        </a>
+
+        <a class="project" href="#">
+          <span class="tag">Interactive tool</span>
+          <h3>When does microlending become a debt trap?</h3>
+          <p>Set the interest rate, the term and the income volatility, then watch where repayment becomes impossible and where it does not.</p>
+        </a>
+
+        <a class="project" href="#">
+          <span class="tag">Shipped app</span>
+          <h3>LectusXP</h3>
+          <p>Short interactive readings for children, live on the Play Store. The project behind my Rise fellowship.</p>
+        </a>
+
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Elsewhere</h2>
+      <p class="eyebrow">Other things I do</p>
+      <div class="more">
+        <a href="#">Research papers <span>&rarr;</span></a>
+        <a href="#">Music <span>&rarr;</span></a>
+        <a href="#">Speaking <span>&rarr;</span></a>
+      </div>
+    </div>
+
   </div>
 
-  <header class="intro">
-    <h1>Gerardo Murga</h1>
-    <p class="tagline">Economics and computer science at Stanford</p>
-    <p class="place">Chihuahua, Mexico</p>
-  </header>
+  <div class="contact">
+    <div>
+      <h2>Get in touch</h2>
+      <p>Open to data science and machine learning internships.</p>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:gerardo@gerardomurga.com">Email</a>
+      <a href="https://github.com/gmurgagg">GitHub</a>
+      <a href="#">LinkedIn</a>
+    </div>
+  </div>
 
-  <ul class="facts">
-    <li><strong>This website is still under development </strong> </li>
-    <li><strong>Quantitative Economics, with a computer science minor.</strong> Class of 2028, focused on econometrics and applied machine learning.</li>
-    <li><strong>Research assistant in the Stanford Economics Department,</strong> working on interpretable causal effects at the intersection of econometrics and machine learning with Professor Arun Chandrasekhar.</li>
-    <li><strong>Lead singer and vice president of Stanford Mariachi Cardenal.</strong> </li>
-    <li><strong>Rise Fellow.</strong> Long term, I want to widen access to financial tools across Latin America.</li>
-  </ul>
-
-  <nav class="links">
-    <a href="projects.html">Projects</a>
-    <a href="about.html">About</a>
-    <a href="mailto:gmurga@stanford.edu">Email</a>
-    <a href="https://github.com/gmurgagg">GitHub</a>
-  </nav>
-
+  <footer>Built and maintained by Gerardo Murga</footer>
 </div>
 
 </body>
